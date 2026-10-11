@@ -9,10 +9,12 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
-  Image,
 } from "react-native";
 import Svg, { Circle, Line } from "react-native-svg";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { Sidebar2 } from "./Sidebar2";
 import { useCourseUI } from "../context/CourseUIContext";
 
@@ -23,7 +25,13 @@ type SectionState = {
 };
 
 const MenuIcon = ({ size = 26, color = "#1f2328" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" stroke={color} strokeWidth={2.2}>
+  <Svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    stroke={color}
+    strokeWidth={2.2}
+  >
     <Line x1="3" y1="6" x2="21" y2="6" />
     <Line x1="3" y1="12" x2="21" y2="12" />
     <Line x1="3" y1="18" x2="21" y2="18" />
@@ -31,14 +39,26 @@ const MenuIcon = ({ size = 26, color = "#1f2328" }) => (
 );
 
 const Plus = ({ size = 22, color = "#202124" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" stroke={color} strokeWidth={2.1}>
+  <Svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    stroke={color}
+    strokeWidth={2.1}
+  >
     <Line x1="12" y1="5" x2="12" y2="19" />
     <Line x1="5" y1="12" x2="19" y2="12" />
   </Svg>
 );
 
 const Minus = ({ size = 22, color = "#ffffff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" stroke={color} strokeWidth={2.1}>
+  <Svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    stroke={color}
+    strokeWidth={2.1}
+  >
     <Line x1="5" y1="12" x2="19" y2="12" />
   </Svg>
 );
@@ -126,12 +146,16 @@ export const Progress = () => {
       const numberScore = parseFloat(String(score));
       return {
         title,
-        score: Number.isFinite(numberScore) ? String(Math.floor(numberScore)) : String(score),
+        score: Number.isFinite(numberScore)
+          ? String(Math.floor(numberScore))
+          : String(score),
       };
     });
 
     const values = (pr.unitProgress || []).filter((n) => typeof n === "number");
-    const progressVal = values.length ? values.reduce((a, b) => a + b, 0) / values.length : 0;
+    const progressVal = values.length
+      ? values.reduce((a, b) => a + b, 0) / values.length
+      : 0;
     return { donutValue: progressVal, assessmentPairs: pairs, unitRows: rows };
   }, [selectedCourse]);
 
@@ -184,15 +208,19 @@ export const Progress = () => {
             </Text>
           </View>
 
-          <View style={{height:280}} className="mt-5 flex gap-0 border border-[#c1c4cd] rounded-[16px] bg-[#f5f5f6] px-2 pt-5">
-            <Text style={styles.courseProgressTitle}>Course Progress</Text>
+          <View className="mt-6 h-[280px] rounded-[16px] border border-[#c1c4cd] bg-[#f5f5f6] px-2 pt-5">
+            <Text style={styles.courseProgressTitle} className="absolute inset-x-0 top-8">
+              Course Progress
+            </Text>
             <Donut value={donutValue} />
           </View>
 
           <Accordion
             title="Your Assessment scores"
             open={open.assessment}
-            onToggle={() => setOpen((prev) => ({ ...prev, assessment: !prev.assessment }))}
+            onToggle={() =>
+              setOpen((prev) => ({ ...prev, assessment: !prev.assessment }))
+            }
           >
             <View className="flex-row justify-between px-3 pb-3 border-b border-[#e1e3e9]">
               <Text style={styles.tableHeader}>Assessment Title</Text>
@@ -215,12 +243,20 @@ export const Progress = () => {
           <Accordion
             title="Unit Wise Progress"
             open={open.unitwise}
-            onToggle={() => setOpen((prev) => ({ ...prev, unitwise: !prev.unitwise }))}
+            onToggle={() =>
+              setOpen((prev) => ({ ...prev, unitwise: !prev.unitwise }))
+            }
           >
             <View className="flex-row justify-between px-3 pb-3 border-b border-[#e1e3e9]">
-              <Text style={styles.unitHeaderTitle} allowFontScaling={false}>Unit Title</Text>
-              <Text style={styles.unitHeaderMeta} allowFontScaling={false}>Lesson{"\n"}Progress</Text>
-              <Text style={styles.unitHeaderMeta} allowFontScaling={false}>Assessment{"\n"}Progress</Text>
+              <Text style={styles.unitHeaderTitle} allowFontScaling={false}>
+                Unit Title
+              </Text>
+              <Text style={styles.unitHeaderMeta} allowFontScaling={false}>
+                Lesson{"\n"}Progress
+              </Text>
+              <Text style={styles.unitHeaderMeta} allowFontScaling={false}>
+                Assessment{"\n"}Progress
+              </Text>
             </View>
 
             {unitRows.map((row, index) => (
@@ -229,11 +265,19 @@ export const Progress = () => {
                 className={`mt-4 px-4 py-5 ${index % 2 === 0 ? "bg-[#d3d3d5]" : "bg-[#f7f7f8]"}`}
               >
                 <View className="flex-row items-center justify-between">
-                  <Text style={styles.unitRowTitle} numberOfLines={2} allowFontScaling={false}>
+                  <Text
+                    style={styles.unitRowTitle}
+                    numberOfLines={2}
+                    allowFontScaling={false}
+                  >
                     {row.title}
                   </Text>
-                  <Text style={styles.unitRowMeta} allowFontScaling={false}>{row.lesson}</Text>
-                  <Text style={styles.unitRowMeta} allowFontScaling={false}>{row.assess}</Text>
+                  <Text style={styles.unitRowMeta} allowFontScaling={false}>
+                    {row.lesson}
+                  </Text>
+                  <Text style={styles.unitRowMeta} allowFontScaling={false}>
+                    {row.assess}
+                  </Text>
                 </View>
               </View>
             ))}
@@ -242,25 +286,34 @@ export const Progress = () => {
           <Accordion
             title="Grading Policy"
             open={open.grading}
-            onToggle={() => setOpen((prev) => ({ ...prev, grading: !prev.grading }))}
+            onToggle={() =>
+              setOpen((prev) => ({ ...prev, grading: !prev.grading }))
+            }
           >
             <Text className="text-[14px] leading-6 text-[#21242a]">
-              The course is free to enroll and learn from. But if you want a certificate, you have to
-              register and write the proctored exam conducted by us in person at any of the designated exam centres.
+              The course is free to enroll and learn from. But if you want a
+              certificate, you have to register and write the proctored exam
+              conducted by us in person at any of the designated exam centres.
             </Text>
             <Text className="mt-2 text-[14px] leading-6 text-[#21242a]">
-              The exam is optional for a fee of Rs 1000/- (Rupees one thousand only).
+              The exam is optional for a fee of Rs 1000/- (Rupees one thousand
+              only).
             </Text>
             <Text className="mt-2 text-[14px] leading-6 text-[#21242a]">
-              Date and Time of Exam: April 17, 2026 Morning Session 9:00 am to 12 noon, Afternoon Session 2:00 pm to 5:00 pm.
+              Date and Time of Exam: April 17, 2026 Morning Session 9:00 am to
+              12 noon, Afternoon Session 2:00 pm to 5:00 pm.
             </Text>
             <Text className="mt-2 text-[14px] leading-6 text-[#21242a]">
-              CRITERIA TO GET A CERTIFICATE: Average assignment score = 25% and exam score = 75%.
+              CRITERIA TO GET A CERTIFICATE: Average assignment score = 25% and
+              exam score = 75%.
             </Text>
             <Text className="mt-2 text-[14px] leading-6 text-[#21242a]">
-              YOU WILL BE ELIGIBLE FOR A CERTIFICATE ONLY IF AVERAGE ASSIGNMENT SCORE ≥ 10/25 AND EXAM SCORE ≥ 30/75.
+              YOU WILL BE ELIGIBLE FOR A CERTIFICATE ONLY IF AVERAGE ASSIGNMENT
+              SCORE ≥ 10/25 AND EXAM SCORE ≥ 30/75.
             </Text>
-            <Text className="mt-2 text-[14px] leading-6 text-[#21242a]">- NPTEL Team</Text>
+            <Text className="mt-2 text-[14px] leading-6 text-[#21242a]">
+              - NPTEL Team
+            </Text>
           </Accordion>
 
           <InfoCard
@@ -274,27 +327,12 @@ export const Progress = () => {
             title="Unsubscribe from Forum"
             text="If you want to unsubscribe from discussion forum,"
             linkText="Click here."
-            onPress={() => Linking.openURL("https://nptel.ac.in/forum-unsubscribe")}
+            onPress={() =>
+              Linking.openURL("https://nptel.ac.in/forum-unsubscribe")
+            }
           />
         </ScrollView>
       </KeyboardAvoidingView>
-
-      <TouchableOpacity
-        activeOpacity={0.9}
-        className="absolute right-5 h-[58px] w-[58px] rounded-full border border-[#d8d9e1] bg-white items-center justify-center"
-        style={[
-          styles.chatFab,
-          {
-            bottom: Math.max(insets.bottom + 18, 34),
-          },
-        ]}
-      >
-        <Image
-          source={require("../assets/images/ai-icon.png")}
-          style={styles.chatFabImage}
-          resizeMode="contain"
-        />
-      </TouchableOpacity>
 
       <Sidebar2
         open={drawerOpen}
@@ -308,7 +346,7 @@ export const Progress = () => {
                 ? "list"
                 : key === "Setting"
                   ? "settings"
-                  : "progress"
+                  : "progress",
           );
           setDrawerOpen(false);
         }}
@@ -333,11 +371,23 @@ const Accordion = ({
       onPress={onToggle}
       className={`flex-row items-center justify-between px-5 py-4 ${open ? "bg-[#2c7ed8]" : "bg-[#f8f8fa]"}`}
     >
-      <Text allowFontScaling={false} style={[styles.accordionTitle, open ? styles.accordionOpenText : styles.accordionClosedText]}>{title}</Text>
+      <Text
+        allowFontScaling={false}
+        style={[
+          styles.accordionTitle,
+          open ? styles.accordionOpenText : styles.accordionClosedText,
+        ]}
+      >
+        {title}
+      </Text>
       {open ? <Minus /> : <Plus />}
     </TouchableOpacity>
 
-    {open ? <View className="border-t border-[#d1d3db] px-4 pt-6 pb-4 bg-[#f7f7f8]">{children}</View> : null}
+    {open ? (
+      <View className="border-t border-[#d1d3db] px-4 pt-6 pb-4 bg-[#f7f7f8]">
+        {children}
+      </View>
+    ) : null}
   </View>
 );
 
@@ -370,7 +420,7 @@ const styles = StyleSheet.create({
     paddingTop: 12,
   },
   headerTitle: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "600",
     color: "#15171c",
   },
@@ -398,7 +448,7 @@ const styles = StyleSheet.create({
   courseProgressTitle: {
     textAlign: "center",
     color: "#17191e",
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "700",
     lineHeight: 28,
   },
@@ -415,7 +465,7 @@ const styles = StyleSheet.create({
     color: "#101217",
   },
   donutPercent: {
-    position:"absolute",
+    position: "absolute",
     bottom: -6,
     right: -16,
     fontSize: 20,
@@ -493,16 +543,5 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "600",
     color: "#2a79d1",
-  },
-  chatFab: {
-    shadowColor: "#000",
-    shadowOpacity: 0.16,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 3,
-  },
-  chatFabImage: {
-    width: 60,
-    height: 60,
   },
 });
