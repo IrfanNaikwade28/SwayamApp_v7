@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+/* Hard reset to remove any default body margin causing visible gutters on mobile */
+html, body, #root {
+	height: 100%;
+	margin: 0;
+}
+
+/* Optional: neutral background to match app base */
+body {
+	background-color: #f5f5f5;
+}
